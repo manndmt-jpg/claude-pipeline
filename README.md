@@ -27,7 +27,7 @@ Structured pre-implementation workflow for Claude Code. Separates planning from 
 ## Installation
 
 ```bash
-git clone https://github.com/your-user/claude-pipeline.git ~/Projects/claude-pipeline
+git clone https://github.com/manndmt-jpg/claude-pipeline.git ~/Projects/claude-pipeline
 cd ~/Projects/claude-pipeline
 bash install.sh
 ```
@@ -66,25 +66,16 @@ Runs checks before you create a pull request:
 
 1. Type-check (auto-detects: tsc, pyright, cargo check, etc.)
 2. Lint (auto-detects: eslint, ruff, etc.)
-3. Git diff summary with file grouping
-4. Quick code review of the diff
-5. Scans for secrets, console.log, TODO/FIXME, merge conflict markers
-6. Verdict: READY or BLOCKED with specific issues
-7. If ready, offers to draft PR title and description
+3. Tests (runs existing tests if found, flags changed files without test coverage)
+4. Git diff summary with file grouping
+5. Quick code review of the diff
+6. Scans for secrets, console.log, TODO/FIXME, merge conflict markers
+7. Verdict: READY or BLOCKED with specific issues
+8. If ready, offers to draft PR title and description
 
-## Existing Commands (untouched)
+## What about existing commands?
 
-These commands in `~/.claude/commands/` are not affected by installation:
-
-| Command | Description |
-|---------|-------------|
-| `/start` | Start a new working session |
-| `/scope` | Context check |
-| `/build` | Build with review pipeline |
-| `/sync` | Update project docs before wrapping up |
-| `/code-review` | Full code review with multiple lenses |
-| `/debug` | Debug assistance |
-| `/refactor` | Code refactoring |
+The installer only touches `plan.md` (backed up before replacing). Any other commands you have in `~/.claude/commands/` are left untouched. The new `/implement` and `/pre-pr` commands are additions — they won't conflict with anything.
 
 ## Template
 
