@@ -69,3 +69,42 @@ Prioritize findings:
 - **P3** - Nice to have (style, minor improvements)
 
 Be specific with `file:line` references.
+
+---
+
+## Save findings
+
+After presenting the review, write all findings to `REVIEW.md` in the project root:
+
+```markdown
+# Code Review — [date]
+
+> Lens: [Standard/Security/Architecture/Performance/Full]
+> Branch: [current branch]
+> Diff: [N] files changed
+
+## P1 — Blocks deploy
+- [ ] `file.ts:42` — [description]
+
+## P2 — Fix soon
+- [ ] `file.ts:87` — [description]
+
+## P3 — Nice to have
+- [ ] `file.ts:12` — [description]
+
+## Summary
+[1-2 sentences: overall assessment]
+```
+
+Each finding is a checkbox so they can be tracked and checked off as fixed.
+
+Then update SCRATCHPAD.md:
+```markdown
+## Code Review
+[N] findings — see REVIEW.md
+- P1: [count]
+- P2: [count]
+- P3: [count]
+```
+
+If a REVIEW.md already exists, append the new review as a new section (don't overwrite previous reviews).
