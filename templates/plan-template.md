@@ -44,6 +44,13 @@ Files read during exploration:
 - [ ] [Criterion 2]
 - [ ] [Criterion 3]
 
+## Test Considerations
+
+[If the project has tests, or if the changes warrant tests, note it here. If not applicable, write "N/A — manual testing only" or "No test infrastructure in this project."]
+
+- [ ] [Files that need new/updated tests]
+- [ ] [Key scenarios to cover]
+
 ## Risks
 
 | Risk | Impact | Mitigation |

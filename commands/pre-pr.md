@@ -33,7 +33,36 @@ Report:
 
 Auto-fixable issues: mention them but don't auto-fix. Ask the user.
 
-## Step 4: Git diff summary
+## Step 4: Tests
+
+**Detect test infrastructure:**
+- Look for test directories (`__tests__/`, `tests/`, `test/`, `spec/`)
+- Check package.json for `test` script, or `pytest.ini`, `jest.config.*`, `vitest.config.*`, etc.
+- Check if the project has any test files at all (glob for `*.test.*`, `*.spec.*`, `test_*.py`)
+
+**If tests exist:** run them (`pnpm test`, `pytest`, `cargo test`, etc.). Report PASS/FAIL.
+
+**If no test infrastructure exists:** note it and move on — not a blocker.
+
+**Test coverage check** (regardless of whether tests exist):
+1. Look at the changed files in the diff
+2. Check if any of the changed source files have corresponding test files
+3. Report:
+   - Files with tests: `src/utils.ts` → `src/utils.test.ts` exists
+   - Files without tests: `src/parser.ts` → no test file found
+
+If changed source files have no corresponding tests, flag it as a **notice** (not a blocker):
+
+```
+Note: [N] changed files have no test coverage:
+- src/parser.ts
+- src/handlers/auth.ts
+Consider whether these changes need tests before merging.
+```
+
+This is informational — the user decides whether to add tests or proceed.
+
+## Step 5: Git diff summary
 
 Run `git diff --stat` and `git diff` to analyze changes.
 
@@ -44,7 +73,7 @@ Report:
 
 Flag if the diff is large (>500 lines changed) — suggest splitting into smaller PRs.
 
-## Step 5: Quick code review
+## Step 6: Quick code review
 
 Review the diff using the Standard review lens:
 
@@ -56,7 +85,7 @@ Review the diff using the Standard review lens:
 
 Keep it focused. This is a quick sanity check, not a full review.
 
-## Step 6: Scan for common mistakes
+## Step 7: Scan for common mistakes
 
 Search the diff for:
 
@@ -68,9 +97,9 @@ Search the diff for:
 
 Report findings with file:line references.
 
-## Step 7: Verdict
+## Step 8: Verdict
 
-Based on Steps 2-6, give a verdict:
+Based on Steps 2-7, give a verdict:
 
 ### If all checks pass:
 
@@ -79,6 +108,8 @@ Based on Steps 2-6, give a verdict:
 
 - Type check: PASS
 - Lint: PASS
+- Tests: PASS (or N/A if no tests exist)
+- Test coverage: [N] changed files have tests, [M] do not
 - Diff: [N] files, +[added]/-[removed] lines
 - Code review: No issues found
 - Scan: Clean
