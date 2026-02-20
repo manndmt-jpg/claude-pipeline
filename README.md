@@ -5,23 +5,21 @@ Structured pre-implementation workflow for Claude Code. Separates planning from 
 ## Pipeline Flow
 
 ```
-/plan  →  review  →  /implement  →  /pre-pr  →  PR
- │          │           │              │
- │          │           │              ├─ type-check
- │          │           │              ├─ lint
- │          │           │              ├─ diff review
- │          │           │              └─ scan for mistakes
- │          │           │
- │          │           ├─ step-by-step execution
- │          │           ├─ verification per step
- │          │           └─ progress tracking in SCRATCHPAD.md
- │          │
- │          └─ human approval gate
- │
- ├─ codebase exploration
- ├─ PLAN.md with steps, verification, acceptance criteria
- ├─ self-validation (files exist, types real, no conflicts)
- └─ cross-reference SCRATCHPAD.md + HANDOFF.md
+/plan  →  approve  →  /implement  →  /pre-pr  ──→  PR
+ │                       │              │       ↑
+ ├─ interview            │              │       │
+ ├─ explore codebase     │              ├─ type-check
+ ├─ write PLAN.md        │              ├─ lint
+ ├─ self-validate        │              ├─ tests
+ └─ wait for approval    │              ├─ diff review
+                         │              ├─ scan
+                         │              └─ suggests /code-review
+                         │                  if diff is large
+                         ├─ step-by-step execution
+                         ├─ verification per step
+                         └─ progress in SCRATCHPAD.md
+
+/code-review ← standalone, use anytime
 ```
 
 ## Installation
@@ -37,7 +35,7 @@ The installer:
 - Backs up any existing files (e.g., `plan.md` → `plan.md.backup`)
 - Is idempotent — safe to re-run
 
-## Commands
+## Pipeline Commands
 
 ### `/plan` — Create an implementation plan
 
@@ -73,9 +71,25 @@ Runs checks before you create a pull request:
 7. Verdict: READY or BLOCKED with specific issues
 8. If ready, offers to draft PR title and description
 
+## Standalone Commands
+
+### `/code-review` — Multi-lens code review
+
+Deep code review with selectable perspective:
+
+1. **Standard** — bugs, types, error handling, async issues (default)
+2. **Security** — injection, auth, path traversal, resource exhaustion
+3. **Architecture** — coupling, abstraction, patterns, testability
+4. **Performance** — memory, N+1 queries, caching, payload size
+5. **Full** — all of the above
+
+Findings are prioritized P1 (blocks deploy) → P2 (fix soon) → P3 (nice to have) with file:line references.
+
+Can be used anytime on any diff — independent of the pipeline. Also suggested by `/pre-pr` when the diff is large or has concerns.
+
 ## What about existing commands?
 
-The installer only touches `plan.md` (backed up before replacing). Any other commands you have in `~/.claude/commands/` are left untouched. The new `/implement` and `/pre-pr` commands are additions — they won't conflict with anything.
+The installer backs up any existing files it replaces (e.g., `plan.md` → `plan.md.backup`, `code-review.md` → `code-review.md.backup`). Other commands in `~/.claude/commands/` are left untouched.
 
 ## Template
 

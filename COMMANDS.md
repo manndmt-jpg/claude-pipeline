@@ -8,6 +8,12 @@
 | `/implement` | Execute PLAN.md step by step with progress tracking |
 | `/pre-pr` | Type-check, lint, review diff, scan for mistakes, verdict |
 
+## Standalone
+
+| Command | What it does |
+|---------|-------------|
+| `/code-review` | Multi-lens review (standard / security / architecture / performance / full) |
+
 ## Your other commands
 
 Add your own commands here for quick reference. These are NOT part of the pipeline — just a personal cheat sheet.

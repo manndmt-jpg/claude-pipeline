@@ -85,6 +85,8 @@ Review the diff using the Standard review lens:
 
 Keep it focused. This is a quick sanity check, not a full review.
 
+If you find concerns, or if the diff is large (>300 lines), suggest: "Consider running `/code-review` for a deeper pass before creating the PR."
+
 ## Step 7: Scan for common mistakes
 
 Search the diff for:

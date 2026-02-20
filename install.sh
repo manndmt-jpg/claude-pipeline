@@ -12,7 +12,7 @@ echo ""
 mkdir -p "$COMMANDS_DIR"
 
 # Commands to install
-COMMANDS=("plan" "implement" "pre-pr")
+COMMANDS=("plan" "implement" "pre-pr" "code-review")
 
 installed=0
 backed_up=0
@@ -57,4 +57,4 @@ echo "  Linked: $installed"
 echo "  Backed up: $backed_up"
 echo "  Skipped: $skipped"
 echo ""
-echo "Commands available: /plan, /implement, /pre-pr"
+echo "Commands available: /plan, /implement, /pre-pr, /code-review"
